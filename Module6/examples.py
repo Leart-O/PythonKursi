@@ -17,3 +17,5 @@ m3.welcome()
 import emoji
 print(emoji.emojize("Python is fun :snake:"))
 
+print(type(m3.welcome()))
+
