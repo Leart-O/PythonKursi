@@ -1,5 +1,3 @@
-from unicodedata import category
-
 
 class Animal:
     def sound(self):
