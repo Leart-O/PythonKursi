@@ -73,3 +73,4 @@ print(prishtina_obj.show_school_info())
 
 ferizaj_obj=DS_Ferizaj("DS_Ferizaj", "Ferizaj", "Kosova", ["HTML", "CSS", "JavaScript"], 2400)
 ferizaj_obj.Internship()
+
