@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-books_df = pd.read_csv("bestsellers_with_categories_2022_03_27.csv")
+books_df = pd.read_csv("books.csv")
 st.title('Best selling books')
 st.write("This app shows a list of best selling books from 2009-2022")
 
