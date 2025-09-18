@@ -21,3 +21,21 @@ with col4:
 with col5:
     st.header("Column 5")
     st.write("Random stuff")
+
+with st.container():
+    st.header("Container")
+    st.subheader("This is inside a container")
+
+tab1, tab2, tab3 = st.tabs(["News", "Sport", "Economy"])
+
+with tab1:
+    st.header("News")
+    st.write("News content")
+
+with tab2:
+    st.header("Sport")
+    st.write("Sport content")
+
+with tab3:
+    st.header("Economy")
+    st.write("Economy content")
