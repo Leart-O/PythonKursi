@@ -14,6 +14,16 @@ CREATE TABLE IF NOT EXISTS employees (
 )
 ''')
 
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS WorkPlace (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    position TEXT NOT NULL,
+    department TEXT NOT NULL,
+    salary REAL NOT NULL
+)
+''')
+
 connection.commit()
 
 cursor.execute('''
@@ -24,3 +34,9 @@ VALUES (????)
 connection.commit()
 
 cursor.execute('SELECT * FROM employees')
+
+rows = cursor.fetchall()
+for row in rows:
+    print(f"employes: {rows[0]}, WorkPlace: {rows[1]}")
+
+connection.close()
