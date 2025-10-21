@@ -26,10 +26,14 @@ CREATE TABLE IF NOT EXISTS WorkPlace (
 
 connection.commit()
 
-cursor.execute('''
+cursor.executemany('''
 INSERT INTO employees (name, position, department, salary)
-VALUES (????)
-''', ('John Doe', 'Software Engineer', 'IT', 75000.00))
+VALUES (?, ?, ?, ?)
+''', [
+    ('John Doe', 'Software Engineer', 'IT', 75000.00),
+    ('Jane Smith', 'Data Analyst', 'Marketing', 65000.00),
+    ('Emily Johnson', 'Project Manager', 'Operations', 85000.00),
+])
 
 connection.commit()
 
@@ -37,6 +41,6 @@ cursor.execute('SELECT * FROM employees')
 
 rows = cursor.fetchall()
 for row in rows:
-    print(f"employes: {rows[0]}, WorkPlace: {rows[1]}")
+    print(f"employee id: {row[0]}, name: {row[1]}, position: {row[2]}, department: {row[3]}, salary: {row[4]}")
 
 connection.close()
