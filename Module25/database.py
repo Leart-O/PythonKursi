@@ -10,8 +10,8 @@ def create_connection():
 
 def create_table():
     """Creates the movies table in the database"""
-    connction = create_connection()
-    cursor = connction.cursor()
+    connection = create_connection()
+    cursor = connection.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS movies (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,8 +19,8 @@ def create_table():
             director TEXT NOT NULL
         )
     ''')
-    connction.commit()
-    connction.close()
+    connection.commit()
+    connection.close()
 
 create_table()
 
@@ -30,27 +30,28 @@ def create_movie(movie: MovieCreate) -> int:
     """
     connection = create_connection()
     cursor = connection.cursor()
-    cursor.execute("Insert Into movies (title, director) Values (? , ? )", (movie.title, movie.director))
+    cursor.execute("INSERT INTO movies (title, director) VALUES (?, ?)", (movie.title, movie.director))
     connection.commit()
     movie_id = cursor.lastrowid
     connection.close()
     return movie_id
 
-def read_movies(movie: MovieCreate) -> int:
+def read_movies() -> list:
     """
     Retrieves all movies from the database
     """
     connection = create_connection()
     cursor = connection.cursor()
-    cursor.execute("Select * From movies")
+    cursor.execute("SELECT * FROM movies")
     rows = cursor.fetchall()
-    movies = [Movie(id=row[0], title=row[1], director=row[2]) for row in rows]
+    movies = [Movie(id=row['id'], title=row['title'], director=row['director']) for row in rows]
+    connection.close()
     return movies
 
 def read_movie(movie_id: int):
     connection = create_connection()
-    connection = connection.cursor()
-    cursor.execute("Select * From movies Where id = ?", (movie_id))
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM movies WHERE id = ?", (movie_id,))
     row = cursor.fetchone()
     connection.close()
     if row is None:
@@ -63,7 +64,7 @@ def update_movie(movie_id: int, movie: MovieCreate) -> bool:
     """
     connection = create_connection()
     cursor = connection.cursor()
-    cursor.execute("Update movies Set title = ? , director = ? Where id = ?", (movie.title, movie.director, movie_id))
+    cursor.execute("UPDATE movies SET title = ?, director = ? WHERE id = ?", (movie.title, movie.director, movie_id))
     connection.commit()
     updated = cursor.rowcount
     connection.close()
@@ -75,7 +76,7 @@ def delete_movie(movie_id: int) -> bool:
     """
     connection = create_connection()
     cursor = connection.cursor()
-    cursor.execute("Delete From movies Where id = ?", (movie_id))
+    cursor.execute("DELETE FROM movies WHERE id = ?", (movie_id,))
     connection.commit()
     deleted = cursor.rowcount
     connection.close()
