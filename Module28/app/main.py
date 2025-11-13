@@ -27,6 +27,6 @@ def read_item(item_id: int, api_key: str = Depends(get_api_keys)):
 @app.put("/items/{item_id}", response_model=Item)
 def update_existing_item(item_id: int, item: Item, api_key: str = Depends(get_api_keys)):
     updated_item = update_item(item_id, item)
-    if updated_item is None:
+    if update_existing_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
     return updated_item
